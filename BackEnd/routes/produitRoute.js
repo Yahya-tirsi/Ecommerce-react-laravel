@@ -3,7 +3,6 @@ const router = express.Router();
 const Produit = require("../models/produit");
 const upload = require('../utils/multerConfig');
 
-
 // Obtenir tous les produits
 router.get("/", async (req, res) => {
   try {

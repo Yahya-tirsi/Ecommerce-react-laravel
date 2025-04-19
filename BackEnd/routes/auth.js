@@ -10,9 +10,9 @@ const SECRET_KEY = process.env.JWT_SECRET;
 
 // Inscription
 router.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, number, password } = req.body;
   try {
-    const user = await Client.create({ username, email, password });
+    const user = await Client.create({ username, email, number, password });
     res.status(201).json({ message: "User registered successfully", user });
   } catch (err) {
     res.status(400).json({ error: err.message });

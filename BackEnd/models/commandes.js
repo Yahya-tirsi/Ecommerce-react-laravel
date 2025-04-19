@@ -5,19 +5,27 @@ const commandeSchema = new mongoose.Schema(
     client: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Client",
-      required: true,   
+      required: true,
     },
     products: [
       {
-        product: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Produit", 
+        image: {
+          type: String,
+          required: true,
+          default: "product-not-found.png",
+        },
+        price: {
+          type: Number,
           required: true,
         },
         quantity: {
           type: Number,
           required: true,
           default: 1,
+        },
+        name: {
+          type: String,
+          required: true,
         },
       },
     ],
@@ -28,10 +36,15 @@ const commandeSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ["Pending", "Processing", "Shipped", "Delivered", "Cancelled"],
-      default: "Pending",
-    }
+    },
   },
   { timestamps: true }
 );
+const statusEnumValues = commandeSchema.path("status").enumValues;
 
-module.exports = mongoose.model("Commande", commandeSchema);
+
+
+module.exports = {
+  Commande: mongoose.model("Commande", commandeSchema),
+  statusEnumValues,
+};
